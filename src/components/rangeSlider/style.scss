@@ -1,0 +1,77 @@
+.slider__ticks {
+  position: relative;
+  width: 80%;
+  height: 20px;
+}
+
+.slider__range-line {
+  height: 5px;
+  background-color: green;
+  position: absolute;
+  top: 30%;
+  left: 0;
+  z-index: 0;
+}
+
+.tick {
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%);
+  font-size: 12px;
+}
+
+.slider {
+  width: 80%;
+  margin: 50px auto;
+  text-align: center;
+  position: relative;
+}
+
+.slider__input {
+  -webkit-appearance: none;
+  width: 80%;
+  height: 10px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  margin: 10px;
+  margin-left: 0;
+  margin-right: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.slider__input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #4caf50;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+.values {
+  margin-top: 10px;
+  font-size: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.control {
+
+  &__input {
+    width: 200px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #D3D3D3;
+
+    padding: 0 5px 0 5px;
+    font-size: 18px;
+  }
+}
+

@@ -1,10 +1,7 @@
 <script setup>
+import RangeSlider from './components/rangeSlider/RangeSlider.vue'
 </script>
 
 <template>
-  <h1>Hello world!</h1>
+  <range-slider />
 </template>
-
-<style scoped>
-
-</style>
