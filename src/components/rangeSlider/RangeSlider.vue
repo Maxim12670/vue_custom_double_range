@@ -71,16 +71,6 @@ function updateLine() {
   tooltipRight.value.textContent = rangeRight.value.value;
 }
 
-function updateLineWithMonth() {
-  const rangeWidth = rangeLeft.value.offsetWidth;
-  const leftValue = (rangeLeft.value.value - rangeLeft.value.min) / (rangeLeft.value.max - rangeLeft.value.min);
-  const rightValue = (rangeRight.value.value - rangeRight.value.min) / (rangeRight.value.max - rangeRight.value.min);
-  const leftPosition = leftValue * rangeWidth;
-  const lineWidth = rightValue * rangeWidth - leftPosition;
-  line.value.style.left = leftPosition + 'px';
-  line.value.style.width = lineWidth + 'px';
-}
-
 function tickWithYear() {
   sliderTicks.value.innerHTML = '';
   const numTicks = max.value - min.value;
