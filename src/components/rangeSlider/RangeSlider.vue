@@ -10,23 +10,25 @@
 
   <div class="wrapper">
     <div class="switcher">
-    <label class="switcher__label " @click="updateFlag" :class="{ 'switcher__label_active': switcherFlag }">
-      Все года</label>
-    <label class="switcher__label" @click="updateFlag"
-      :class="{ 'switcher__label_active': !switcherFlag }">Месяца</label>
-  </div>
-
-  <div class="slider">
-    <input :min="min" :max="max" v-model="leftValue" ref="rangeLeft" v-on:input="updateLine" type="range"
-      class="slider__input">
-    <input :min="min" :max="max" v-model="rightValue" ref="rangeRight" v-on:input="updateLine" type="range"
-      class="slider__input">
-    <div class="values">
-      <span>{{ leftValue }}</span> - <span>{{ rightValue }}</span>
+      <label class="switcher__label " @click="{ updateFlag(); updateLineTicks() }"
+        :class="{ 'switcher__label_active': switcherFlag }">
+        Все года</label>
+      <label class="switcher__label" @click="{ updateFlag(); updateLineTicks() }"
+        :class="{ 'switcher__label_active': !switcherFlag }">Месяца</label>
     </div>
-    <div ref="line" class="slider__range-line"></div>
-    <div ref="sliderTicks" class="slider__ticks"></div>
-  </div>
+
+    <div class="slider">
+      <input :min="min" :max="max" v-model="leftValue" ref="rangeLeft" v-on:input="() => { updateLine() }" type="range"
+        class="slider__input">
+      <input :min="min" :max="max" v-model="rightValue" ref="rangeRight" v-on:input="() => { updateLine() }"
+        type="range" class="slider__input">
+      <div ref="tooltipLeft" class="slider__tooltip"></div>
+      <div ref="tooltipRight" class="slider__tooltip"></div>
+      <div class="values">
+      </div>
+      <div ref="line" class="slider__range-line"></div>
+      <div ref="sliderTicks" class="slider__ticks"></div>
+    </div>
   </div>
 </template>
 
@@ -44,8 +46,10 @@ const leftValue = ref(currentMin);
 const rightValue = ref(currentMax);
 const line = ref(null);
 const sliderTicks = ref();
-const switcherFlag = ref(true);
+const switcherFlag = ref(false);
 const months = ['фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+const tooltipLeft = ref();
+const tooltipRight = ref();
 
 function updateFlag() {
   switcherFlag.value = !switcherFlag.value;
@@ -59,6 +63,12 @@ function updateLine() {
   const lineWidth = rightValue * rangeWidth - leftPosition;
   line.value.style.left = leftPosition + 'px';
   line.value.style.width = lineWidth + 'px';
+
+  const rightPosition = rightValue * rangeWidth;
+  tooltipLeft.value.style.left = leftPosition + 'px';
+  tooltipLeft.value.textContent = rangeLeft.value.value;
+  tooltipRight.value.style.left = rightPosition + 'px';
+  tooltipRight.value.textContent = rangeRight.value.value;
 }
 
 function updateLineWithMonth() {
@@ -100,16 +110,18 @@ function tickWithMonth() {
     const tick = document.createElement('div');
     tick.className = 'tick';
     tick.style.left = `${widthForDate * i}%`;
-    tick.style.width = `${widthForDate}%`;
     tick.textContent = tickValue;
     sliderTicks.value.appendChild(tick);
 
-    for (let x = 0; x < 11; x++) {
-      const tickMonth = document.createElement('div');
-      tickMonth.className = 'tick__month';
-      tickMonth.style.left = `${widthForMonth * x * i}%`;
-      tickMonth.textContent = months[x];
-      sliderTicks.value.appendChild(tickMonth);
+    if (i !== numTicks) {
+      console.log('111')
+      for (let x = 0; x < 11; x++) {
+        const tickMonth = document.createElement('div');
+        tickMonth.className = 'tick__month';
+        tickMonth.style.left = `${(widthForDate * i) + (widthForMonth * x)}%`;
+        tickMonth.textContent = months[x];
+        sliderTicks.value.appendChild(tickMonth);
+      }
     }
   }
 }
