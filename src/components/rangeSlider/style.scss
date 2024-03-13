@@ -28,6 +28,7 @@
   bottom: -18px;
   transform: translateX(-50%);
   font-size: 18px;
+  color: #0000FF;
 
   &:last-child {
     left: 97% !important;
@@ -37,9 +38,10 @@
     margin-left: 2%;
     transform: translateX(-50%);
     position: absolute;
-    bottom: -10px;
+    bottom: -15px;
     font-size: 12px;
-    color: red;
+    color: #0000FF;
+    opacity: 0.5;
   }
 }
 
